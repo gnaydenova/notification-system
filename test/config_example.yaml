@@ -1,0 +1,29 @@
+producer:
+  topic: test-notifications
+  addr: 
+    - kafka:9092
+consumer:
+  topic: test-notifications
+  addr: 
+    - kafka:9092
+  group_id: test-notification-consumer
+retry_queue:
+    topic: test-retry-queue
+    addr: 
+      - kafka:9092
+    group_id: test-retry-queue-consumer
+dlq:
+  topic: test-dead-letter-queue
+  addr: 
+    - kafka:9092
+  group_id: test-dead-letter-queue-consumer
+distributor:
+  max_retries: 2
+  retry_queue:
+    topic: test-retry-queue
+    addr: 
+      - kafka:9092
+  dlq:
+    topic: test-dead-letter-queue
+    addr: 
+      - kafka:9092

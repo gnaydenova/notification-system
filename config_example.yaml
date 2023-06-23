@@ -1,0 +1,47 @@
+producer:
+  topic: notifications
+  addr: 
+    - kafka:9092
+consumer:
+  topic: notifications
+  addr: 
+    - kafka:9092
+  group_id: notification-consumer
+retry_queue:
+    topic: retry-queue
+    addr: 
+      - kafka:9092
+    group_id: retry-queue
+distributor:
+  max_retries: 3
+  retry_queue:
+    topic: retry-queue
+    addr: 
+      - kafka:9092
+  dlq:
+    topic: dead-letter-queue
+    addr: 
+      - kafka:9092
+channels:
+  log:
+    enabled: true
+  email:
+    enabled: false
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    user: user
+    password: password
+    from: someone@somewhere.com
+    to: 
+      - someone@somewhere.com
+    subject: Test subject
+  slack:
+    enabled: false
+    token: slack_bot_token
+    channel_id: channel_id
+  sms:
+    enabled: false
+    account_sid: account_sid
+    token: twilio_token
+    from: twilio_number
+    to: number
